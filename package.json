@@ -1,0 +1,15 @@
+{
+	"name": "myNewApi",
+	"version": "0.0.1",
+	"description": "Wicked awesome test API",
+	"author": "pete gamache <pete@appcues.com>",
+	"main": "index.js",
+	"dependencies": {},
+	"devDependencies": {
+		"chai": "*",
+		"mocha": "*"
+	},
+	"scripts": {
+		"zip": "zip -r ../boston-subway-companion-api.zip *"
+	}
+}
