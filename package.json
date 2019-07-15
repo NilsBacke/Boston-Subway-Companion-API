@@ -1,11 +1,14 @@
 {
-	"name": "myNewApi",
+	"name": "bostonSubwayCompanionAPI",
 	"version": "0.0.1",
-	"description": "Wicked awesome test API",
-	"author": "pete gamache <pete@appcues.com>",
-	"main": "index.js",
+	"description": "Wicked awesome boston subway companion app API",
+	"author": "nils backe <nils.backe@gmail.com>",
+	"main": "index.ts",
 	"dependencies": {},
 	"devDependencies": {
+		"@types/jest": "^24.0.15",
+		"@types/node": "^12.6.2",
+		"@types/aws-lambda": "^8.10.28",
 		"chai": "*",
 		"mocha": "*"
 	},
