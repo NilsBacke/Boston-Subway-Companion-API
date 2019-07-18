@@ -1,8 +1,7 @@
 import { APIGatewayEvent, Context, APIGatewayProxyResult } from 'aws-lambda'
 
 var packagejson = require('./package.json')
-import nearest from './lib/routes/nearest'
-import allNearby from './lib/routes/allNearby'
+import { nearest, allNearby, stopsAtSameLocation, alertsForStop } from './lib/routes'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
@@ -27,6 +26,32 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		}
 
 		const list = await allNearby(event.queryStringParameters, Number(event.queryStringParameters!.range))
+
+		return { statusCode: 200, body: list }
+	}
+
+	if (event.path.includes('/stops/location')) {
+		if (!event.body) {
+			return {
+				statusCode: 400,
+				body: 'No stop provided in request body'
+			}
+		}
+
+		const list = await stopsAtSameLocation(JSON.parse(event.body))
+
+		return { statusCode: 200, body: list }
+	}
+
+	if (event.path.includes('/stops/alerts')) {
+		if (!event.queryStringParameters || !event.queryStringParameters.stopId) {
+			return {
+				statusCode: 400,
+				body: 'No stop id provided in query params'
+			}
+		}
+
+		const list = await alertsForStop(JSON.parse(event.queryStringParameters.stopId))
 
 		return { statusCode: 200, body: list }
 	}
