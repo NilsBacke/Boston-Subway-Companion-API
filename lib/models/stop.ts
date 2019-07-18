@@ -11,7 +11,7 @@ export interface Stop {
 }
 
 export function makeStop(data: any): Stop {
-	const desc = data[0]['attributes']
+	const desc = data['attributes']['description']
 	const lineName = desc.substring(desc.indexOf('- ') + 2, desc.lastIndexOf(' -'))
 	return {
 		id: data.id,
