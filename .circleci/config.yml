@@ -68,7 +68,7 @@ workflows:
                   context: subway-api-aws
                   filters:
                       branches:
-                          ignore: [develop, prod]
+                          ignore: [develop, master]
     deploy-develop:
         jobs:
             - node:
