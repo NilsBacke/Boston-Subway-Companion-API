@@ -2,8 +2,8 @@ import { executeCall } from './executeCall'
 import { Stop } from '../models'
 import { makeStop } from '../models/stop'
 
-export const handleMultipleStops = async (url: string): Promise<Stop[]> => {
-	const json = await executeCall(url)
+export const handleMultipleStops = async (url: string, method: string = 'GET'): Promise<Stop[]> => {
+	const json = await executeCall(url, method)
 
 	console.log(json)
 	// TODO: handle error of json

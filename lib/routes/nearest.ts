@@ -10,5 +10,7 @@ export async function nearest(locationData: any): Promise<string> {
 		locationData!.longitude
 	}&filter[radius]=${radius}&filter[route_type]=0,1&sort=distance&page[limit]=2`
 
+	console.log('Nearest stop url: ' + url)
+
 	return JSON.stringify(await handleMultipleStops(url))
 }

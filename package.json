@@ -5,6 +5,7 @@
 	"author": "nils backe <nils.backe@gmail.com>",
 	"main": "index.ts",
 	"dependencies": {
+		"@types/node-fetch": "^2.3.7",
 		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
