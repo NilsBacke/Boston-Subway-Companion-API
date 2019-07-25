@@ -18,6 +18,7 @@
 	},
 	"scripts": {
 		"zipupload": "tsc && zip -r ./boston-subway-companion-api.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI --zip-file fileb://boston-subway-companion-api.zip",
-		"zip": "tsc && zip -r ./boston-subway-companion-api.zip * && find . -name \"*.js\" -type f -delete"
+		"zip": "tsc && zip -r ./boston-subway-companion-api.zip * && find . -name \"*.js\" -type f -delete",
+		"type-check": "tsc --noEmit"
 	}
 }
