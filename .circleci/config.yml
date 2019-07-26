@@ -54,9 +54,7 @@ jobs:
             - run: sudo pip3 install awscli --upgrade
             - run: zip -r ./lambda.zip *
             # - run: aws configure set region us-east-1
-            - run: |
-              AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-              aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:377533301042:function:lucasCompanies --zip-file fileb://lambda.zip
+            - run: aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:377533301042:function:lucasCompanies --zip-file fileb://lambda.zip
 
 workflows:
     version: 2
