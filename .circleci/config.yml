@@ -56,9 +56,9 @@ jobs:
             - run: sudo apt-get install zip -y
             - run: sudo apt-get install python3 -y
             - run: sudo apt-get install python3-pip -y
-            - run: pip3 install awscli --upgrade
+            - run: sudo pip3 install awscli --upgrade
             - run: zip -r ./lambda.zip *
-            - run: aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:377533301042:function:lucasCompanies --zip-file fileb://lambda.zip
+            - run: sudo aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:377533301042:function:lucasCompanies --zip-file fileb://lambda.zip
 
 workflows:
     version: 2
