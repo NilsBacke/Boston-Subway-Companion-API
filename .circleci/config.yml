@@ -67,14 +67,12 @@ workflows:
     deploy-develop:
         jobs:
             - node:
-                  context: subway-api-aws
                   filters:
                       branches:
                           only: develop
             - develop:
                   requires:
                       - node
-                  context: subway-api-aws
                   filters:
                       branches:
                           only: develop
