@@ -52,9 +52,10 @@ jobs:
             - run: sudo apt-get install python3 -y
             - run: sudo apt-get install python3-pip -y
             - run: sudo pip3 install awscli --upgrade
-            - run: zip -r ./lambda.zip *
             # - run: aws configure set region us-east-1
-            - run: aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:377533301042:function:lucasCompanies --zip-file fileb://lambda.zip
+            - run: zip -r ./boston-subway-companion-api.zip *
+            - run: find . -name \"*.js\" -type f -delete
+            - run: aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI --zip-file fileb://boston-subway-companion-api.zip
 
 workflows:
     version: 2
