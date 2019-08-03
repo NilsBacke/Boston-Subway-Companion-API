@@ -18,6 +18,6 @@ export async function stopsAtSameLocation(givenStop: Stop): Promise<string> {
 	}
 
 	stops.sort((stop1, stop2) => stop1.lineName.localeCompare(stop2.lineName))
-	assert(stops.length == 1 || stops.length == 2 || stops.length == 4) // TODO: figure out what to do with this
+	// assert(stops.length == 1 || stops.length == 2 || stops.length == 4) // TODO: figure out what to do with this
 	return JSON.stringify(stops)
 }
