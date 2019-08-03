@@ -7,7 +7,9 @@ export async function stopsAtSameLocation(givenStop: Stop): Promise<string> {
 		givenStop.longitude
 	}&filter[radius]=0.001&filter[route_type]=0,1&sort=distance`
 
-	const stops = await handleMultipleStops(url, 'POST')
+	const stops = await handleMultipleStops(url, 'GET')
+
+	console.log(stops)
 
 	// filter stops
 	for (let i = 0; i < stops.length; i++) {
@@ -16,6 +18,8 @@ export async function stopsAtSameLocation(givenStop: Stop): Promise<string> {
 			i--
 		}
 	}
+
+	console.log(stops)
 
 	stops.sort((stop1, stop2) => stop1.lineName.localeCompare(stop2.lineName))
 
