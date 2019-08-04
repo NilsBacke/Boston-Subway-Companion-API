@@ -1,5 +1,3 @@
-import { awsApiKey } from '../routes'
-
 const fetch = require('node-fetch')
 
 export async function executeCall(url: string, method: string = 'GET'): Promise<any> {
