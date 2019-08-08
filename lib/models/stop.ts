@@ -21,7 +21,7 @@ export interface Stop {
 
 export function makeStop(data: any): Stop {
 	const desc = data['attributes']['description']
-	const lineName = desc.substring(desc.indexOf('- ') + 2, desc.lastIndexOf(' -'))
+	const lineName = getLineName(desc)
 	const directionDestination = data['attributes'].platform_name
 	const directionName = convertDirectionToName(data['attributes'].platform_name)
 	return {
@@ -37,6 +37,14 @@ export function makeStop(data: any): Stop {
 		lineInitials: getLineInitials(lineName),
 		directionDescription: getDirectionDescription(directionDestination, directionName)
 	}
+}
+
+function getLineName(desc: string): string {
+	if (desc.indexOf('-') === desc.lastIndexOf('-')) {
+		// end of line stop
+		return desc.substring(desc.indexOf('-'))
+	}
+	return desc.substring(desc.indexOf('- ') + 2, desc.lastIndexOf(' -'))
 }
 
 function getDirectionDescription(directionDestination: string, directionName: string): string {
