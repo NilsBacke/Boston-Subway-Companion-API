@@ -47,13 +47,26 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		if (!event.queryStringParameters || !event.queryStringParameters.stopId) {
 			return {
 				statusCode: 400,
-				body: 'No stop id provided in query params'
+				body: 'No stopId provided in query params'
 			}
 		}
 
 		const list = await alertsForStop(JSON.parse(event.queryStringParameters.stopId))
 
 		return { statusCode: 200, body: list }
+	}
+
+	if (event.path.includes('/stops/neighbor')) {
+		if (!event.queryStringParameters || !event.queryStringParameters.stopId) {
+			return {
+				statusCode: 400,
+				body: 'No stopId provided in query params'
+			}
+		}
+
+		const stop = await neighborStop(JSON.parse(event.queryStringParameters.stopId))
+
+		return { statusCode: 200, body: stop }
 	}
 
 	return { statusCode: 404, body: '' }
