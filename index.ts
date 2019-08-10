@@ -1,7 +1,7 @@
 import { APIGatewayEvent, Context, APIGatewayProxyResult } from 'aws-lambda'
 
 var packagejson = require('./package.json')
-import { nearest, allNearby, stopsAtSameLocation, alertsForStop } from './lib/routes'
+import { nearest, allNearby, stopsAtSameLocation, alertsForStop, neighborStop } from './lib/routes'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
