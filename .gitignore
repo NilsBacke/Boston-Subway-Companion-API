@@ -1,1 +1,3 @@
 node_modules
+lib/routes/secrets.ts
+lib/routes/secrets.js
