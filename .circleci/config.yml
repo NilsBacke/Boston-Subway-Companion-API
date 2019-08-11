@@ -55,7 +55,7 @@ jobs:
             # - run: aws configure set region us-east-1
             - run: echo $CIRCLE_WORKING_DIRECTORY
             - run: ls
-            - run: base64 --decode 'InVzZSBzdHJpY3QiOwpPYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgIl9fZXNNb2R1bGUiLCB7IHZhbHVlOiB0cnVlIH0pOwpleHBvcnRzLmFwaUtleSA9ICdkYzQ0YjMwMTAxMTE0ZTg4YjQ1MDQxYTRhOWI2NWUwNic7CmV4cG9ydHMuYmFzZVVSTCA9ICdodHRwczovL2FwaS12My5tYnRhLmNvbSc7CmV4cG9ydHMuYXdzQXBpS2V5ID0gJ3E5c2RtOFlJUFMyTTh3ZjNmcldpYzU2Y3FaNFdTSXVNNE5ObllvS2YnOwpleHBvcnRzLmRpc3RhbmNlTWF0cml4S2V5ID0gJ0FJemFTeUFXZFl2QXlPWUJqcXFsVERRQ0tZQ245cHNOSmtOSFJfZyc7CmV4cG9ydHMuZGlyZWN0aW9uc0tleSA9ICdBSXphU3lBYzBLVFhWd3NhaWNzSjdmOWdnRXU2QW1JbDFKT19CUWcnOwo=' > './lib/routes/secrets.js'
+            - run: base64 --decode InVzZSBzdHJpY3QiOwpPYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgIl9fZXNNb2R1bGUiLCB7IHZhbHVlOiB0cnVlIH0pOwpleHBvcnRzLmFwaUtleSA9ICdkYzQ0YjMwMTAxMTE0ZTg4YjQ1MDQxYTRhOWI2NWUwNic7CmV4cG9ydHMuYmFzZVVSTCA9ICdodHRwczovL2FwaS12My5tYnRhLmNvbSc7CmV4cG9ydHMuYXdzQXBpS2V5ID0gJ3E5c2RtOFlJUFMyTTh3ZjNmcldpYzU2Y3FaNFdTSXVNNE5ObllvS2YnOwpleHBvcnRzLmRpc3RhbmNlTWF0cml4S2V5ID0gJ0FJemFTeUFXZFl2QXlPWUJqcXFsVERRQ0tZQ245cHNOSmtOSFJfZyc7CmV4cG9ydHMuZGlyZWN0aW9uc0tleSA9ICdBSXphU3lBYzBLVFhWd3NhaWNzSjdmOWdnRXU2QW1JbDFKT19CUWcnOwo= > './lib/routes/secrets.js'
             - run: sudo npm install -g typescript
             - run: tsc
             - run: zip -r ./boston-subway-companion-api.zip *
