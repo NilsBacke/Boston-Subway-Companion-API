@@ -2,6 +2,8 @@ import { APIGatewayEvent, Context, APIGatewayProxyResult } from 'aws-lambda'
 
 var packagejson = require('./package.json')
 import { nearest, allNearby, stopsAtSameLocation, alertsForStop, neighborStop } from './lib/routes'
+import { makeError } from './lib/models'
+import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLocationParamsError } from './lib/constants'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
@@ -34,7 +36,7 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		if (!event.body) {
 			return {
 				statusCode: 400,
-				body: 'No stop provided in request body'
+				body: makeError('No stop provided in request body', 'Cannot load stop') as string
 			}
 		}
 
@@ -47,7 +49,7 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		if (!event.queryStringParameters || !event.queryStringParameters.stopId) {
 			return {
 				statusCode: 400,
-				body: 'No stopId provided in query params'
+				body: makeError('stopId parameter not provided', 'Cannot load stop') as string
 			}
 		}
 
@@ -60,7 +62,7 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		if (!event.queryStringParameters || !event.queryStringParameters.stopId) {
 			return {
 				statusCode: 400,
-				body: 'No stopId provided in query params'
+				body: makeError(stopIdParamsError, standardUserError) as string
 			}
 		}
 
@@ -69,21 +71,19 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		return { statusCode: 200, body: stop }
 	}
 
-	return { statusCode: 404, body: '' }
+	return { statusCode: 404, body: makeError(noMatchingRouteError, standardUserError) as string }
 }
 
-const handleLocationParams = (event: APIGatewayEvent) => {
-	if (!event.queryStringParameters) {
+const handleLocationParams = (event: APIGatewayEvent): APIGatewayProxyResult | null => {
+	if (
+		!event.queryStringParameters ||
+		!event.queryStringParameters!.latitude ||
+		!event.queryStringParameters!.longitude
+	) {
 		return {
 			statusCode: 400,
-			body: 'No query string parameters provided. Require query parameters: latitude, longitude'
+			body: makeError(missingLocationParamsError, standardUserError) as string
 		}
-	}
-	if (!event.queryStringParameters!.latitude) {
-		return { statusCode: 400, body: 'Latitude query string parameter not provided' }
-	}
-	if (!event.queryStringParameters!.longitude) {
-		return { statusCode: 400, body: 'Longitude query string parameter not provided' }
 	}
 	return null
 }

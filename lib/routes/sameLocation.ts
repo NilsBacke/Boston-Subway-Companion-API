@@ -7,7 +7,7 @@ export async function stopsAtSameLocation(givenStop: Stop): Promise<string> {
 		givenStop.longitude
 	}&filter[radius]=0.001&filter[route_type]=0,1&sort=distance`
 
-	const stops = await handleMultipleStops(url, 'GET')
+	const stops = (await handleMultipleStops(url, false, 'GET')) as Stop[]
 
 	// filter stops
 	for (let i = 0; i < stops.length; i++) {
