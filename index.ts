@@ -92,8 +92,8 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		}
 
 		const endStopName = await direction(
-			JSON.parse(event.queryStringParameters.stop1Name),
-			JSON.parse(event.queryStringParameters.stop2Name)
+			event.queryStringParameters.stop1Name,
+			event.queryStringParameters.stop2Name
 		)
 
 		return { statusCode: 200, body: endStopName }
@@ -111,10 +111,7 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 			}
 		}
 
-		const minutes = await timeBetween(
-			JSON.parse(event.queryStringParameters.stop1Name),
-			JSON.parse(event.queryStringParameters.stop2Name)
-		)
+		const minutes = await timeBetween(event.queryStringParameters.stop1Name, event.queryStringParameters.stop2Name)
 
 		return { statusCode: 200, body: minutes }
 	}
