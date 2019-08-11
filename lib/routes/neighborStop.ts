@@ -1,5 +1,6 @@
 import { baseURL, apiKey } from '.'
 import { executeCall } from '../shared/executeCall'
+import { makeStop } from '../models/stop'
 
 export async function neighborStop(stopId: string): Promise<string> {
 	const stopIdNum: number = Number(stopId)
@@ -16,9 +17,9 @@ export async function neighborStop(stopId: string): Promise<string> {
 
 	for (var i = 1; i < data.length; i++) {
 		if (nameToMatch === data[i].attributes.name) {
-			return JSON.stringify(data[i])
+			return JSON.stringify(makeStop(data[i]))
 		}
 	}
 
-	return JSON.stringify(data[0])
+	return JSON.stringify(makeStop(data[0]))
 }
