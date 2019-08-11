@@ -1,7 +1,15 @@
 import { APIGatewayEvent, Context, APIGatewayProxyResult } from 'aws-lambda'
 
 var packagejson = require('./package.json')
-import { nearest, allNearby, stopsAtSameLocation, alertsForStop, neighborStop } from './lib/routes'
+import {
+	nearest,
+	allNearby,
+	stopsAtSameLocation,
+	alertsForStop,
+	neighborStop,
+	direction,
+	timeBetween
+} from './lib/routes'
 import { makeError } from './lib/models'
 import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLocationParamsError } from './lib/constants'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
@@ -69,6 +77,46 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		const stop = await neighborStop(JSON.parse(event.queryStringParameters.stopId))
 
 		return { statusCode: 200, body: stop }
+	}
+
+	if (event.path.includes('/stops/direction')) {
+		if (
+			!event.queryStringParameters ||
+			!event.queryStringParameters.stop1Name ||
+			!event.queryStringParameters.stop2Name
+		) {
+			return {
+				statusCode: 400,
+				body: makeError(stopIdParamsError, standardUserError) as string
+			}
+		}
+
+		const endStopName = await direction(
+			JSON.parse(event.queryStringParameters.stop1Name),
+			JSON.parse(event.queryStringParameters.stop2Name)
+		)
+
+		return { statusCode: 200, body: endStopName }
+	}
+
+	if (event.path.includes('/stops/timeBetween')) {
+		if (
+			!event.queryStringParameters ||
+			!event.queryStringParameters.stop1Name ||
+			!event.queryStringParameters.stop2Name
+		) {
+			return {
+				statusCode: 400,
+				body: makeError(stopIdParamsError, standardUserError) as string
+			}
+		}
+
+		const minutes = await timeBetween(
+			JSON.parse(event.queryStringParameters.stop1Name),
+			JSON.parse(event.queryStringParameters.stop2Name)
+		)
+
+		return { statusCode: 200, body: minutes }
 	}
 
 	return { statusCode: 404, body: makeError(noMatchingRouteError, standardUserError) as string }
