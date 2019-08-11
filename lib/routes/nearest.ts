@@ -1,7 +1,7 @@
 import { baseURL, apiKey } from '.'
 import { handleMultipleStops } from '../shared/handleMultipleStops'
 
-const rangeInMiles = 100
+const rangeInMiles = 1000
 
 export async function nearest(locationData: any): Promise<string> {
 	const radius = 0.02 * rangeInMiles
