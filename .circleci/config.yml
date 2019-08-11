@@ -55,9 +55,10 @@ jobs:
             # - run: aws configure set region us-east-1
             - run: echo $CIRCLE_WORKING_DIRECTORY
             - run: ls
+            - run: base64 --help
             - run: |
                   echo $CONFIG > ./placeholder.txt
-                  base64 --decode -i ./placeholder.txt -o ./lib/routes/secrets.js
+                  base64 --decode -i ./placeholder.txt > ./lib/routes/secrets.js
             - run: sudo npm install -g typescript
             - run: tsc
             - run: zip -r ./boston-subway-companion-api.zip *
