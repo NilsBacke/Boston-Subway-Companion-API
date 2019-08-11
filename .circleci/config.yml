@@ -55,7 +55,7 @@ jobs:
             # - run: aws configure set region us-east-1
             - run: touch lib/routes/secrets.js
             - run: echo $CIRCLE_WORKING_DIRECTORY
-            - run: echo $CONFIG | base64 --decode > lib/routes/secrets.js
+            - run: echo $CONFIG | base64 --decode > ${CIRCLE_WORKING_DIRECTORY}lib/routes/secrets.js
             - run: sudo npm install -g typescript
             - run: tsc
             - run: zip -r ./boston-subway-companion-api.zip *
@@ -80,7 +80,7 @@ jobs:
             # - run: aws configure set region us-east-1
             - run: touch lib/routes/secrets.js
             - run: echo $CIRCLE_WORKING_DIRECTORY
-            - run: echo $CONFIG | base64 --decode > lib/routes/secrets.js
+            - run: echo $CONFIG | base64 --decode > ${CIRCLE_WORKING_DIRECTORY}lib/routes/secrets.js
             - run: sudo npm install -g typescript
             - run: tsc
             - run: zip -r ./boston-subway-companion-api-prod.zip *
