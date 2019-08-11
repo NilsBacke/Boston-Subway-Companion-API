@@ -57,7 +57,6 @@ jobs:
                   echo $CONFIG > ./placeholder.txt
                   base64 --decode -i ./placeholder.txt > ./lib/routes/secrets.js
             - run: sudo npm install -g typescript
-            - run: npm run type-check
             - run: tsc
             - run: zip -r ./boston-subway-companion-api.zip *
             - run: find . -name \"*.js\" -type f -delete
