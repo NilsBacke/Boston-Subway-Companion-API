@@ -99,7 +99,7 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		return { statusCode: 200, body: endStopName }
 	}
 
-	if (event.path.includes('/stops/timeBetween')) {
+	if (event.path.includes('/stops/timebetween')) {
 		if (
 			!event.queryStringParameters ||
 			!event.queryStringParameters.stop1Name ||
