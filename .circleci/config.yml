@@ -53,6 +53,8 @@ jobs:
             - run: sudo apt-get install python3-pip -y
             - run: sudo pip3 install awscli --upgrade
             # - run: aws configure set region us-east-1
+            - run: sudo npm install -g typescript
+            - run: tsc
             - run: zip -r ./boston-subway-companion-api.zip *
             - run: find . -name \"*.js\" -type f -delete
             - run: aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI --zip-file fileb://boston-subway-companion-api.zip
@@ -73,6 +75,8 @@ jobs:
             - run: sudo apt-get install python3-pip -y
             - run: sudo pip3 install awscli --upgrade
             # - run: aws configure set region us-east-1
+            - run: sudo npm install -g typescript
+            - run: tsc
             - run: zip -r ./boston-subway-companion-api-prod.zip *
             - run: find . -name \"*.js\" -type f -delete
             - run: aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI-prod --zip-file fileb://boston-subway-companion-api-prod.zip
@@ -83,9 +87,6 @@ workflows:
         jobs:
             - node:
                   context: subway-api-aws
-                  filters:
-                      branches:
-                          ignore: [develop, master]
     deploy-develop:
         jobs:
             - node:

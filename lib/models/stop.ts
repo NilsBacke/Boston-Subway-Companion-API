@@ -21,7 +21,7 @@ export interface Stop {
 
 export function makeStop(data: any): Stop {
 	const desc = data['attributes']['description']
-	const lineName = desc.substring(desc.indexOf('- ') + 2, desc.lastIndexOf(' -'))
+	const lineName = getLineName(desc, data)
 	const directionDestination = data['attributes'].platform_name
 	const directionName = convertDirectionToName(data['attributes'].platform_name)
 	return {
@@ -39,12 +39,20 @@ export function makeStop(data: any): Stop {
 	}
 }
 
+function getLineName(desc: string, data: any): string {
+	if (desc.indexOf('-') === desc.lastIndexOf('-')) {
+		// end of line stop
+		return data['attributes']['platform_name']
+	}
+	return desc.substring(desc.indexOf('- ') + 2, desc.lastIndexOf(' -'))
+}
+
 function getDirectionDescription(directionDestination: string, directionName: string): string {
 	return directionName + 'bound towards ' + directionDestination
 }
 
 function getLineInitials(lineName: string): string {
-	return lineName == 'Mattapan' ? 'M' : lineName[0].toUpperCase() + lineName[lineName.indexOf(' ') + 1].toUpperCase()
+	return lineName === 'Mattapan' ? 'M' : lineName[0].toUpperCase() + 'L'
 }
 
 function getLineColor(lineName: string): string {

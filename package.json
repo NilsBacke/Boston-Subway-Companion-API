@@ -4,11 +4,12 @@
 	"description": "Wicked awesome boston subway companion app API",
 	"author": "nils backe <nils.backe@gmail.com>",
 	"main": "index.ts",
+	"license": "MIT",
 	"dependencies": {
-		"@types/node-fetch": "^2.3.7",
 		"node-fetch": "^2.6.0"
 	},
 	"devDependencies": {
+		"@types/node-fetch": "^2.3.7",
 		"@types/jest": "^24.0.15",
 		"@types/node": "^12.6.2",
 		"@types/aws-lambda": "^8.10.28",
@@ -17,7 +18,8 @@
 		"typescript": "^3.5.3"
 	},
 	"scripts": {
-		"zipupload": "tsc && zip -r ./boston-subway-companion-api.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI --zip-file fileb://boston-subway-companion-api.zip",
+		"zipuploaddevelop": "tsc && zip -r ./boston-subway-companion-api.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI --zip-file fileb://boston-subway-companion-api.zip",
+		"zipuploadprod": "tsc && zip -r ./boston-subway-companion-api-prod.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI-prod --zip-file fileb://boston-subway-companion-api-prod.zip",
 		"zip": "tsc && zip -r ./boston-subway-companion-api.zip * && find . -name \"*.js\" -type f -delete",
 		"type-check": "tsc --noEmit"
 	}
