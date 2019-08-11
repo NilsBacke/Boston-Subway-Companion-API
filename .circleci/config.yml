@@ -53,6 +53,7 @@ jobs:
             - run: sudo apt-get install python3-pip -y
             - run: sudo pip3 install awscli --upgrade
             # - run: aws configure set region us-east-1
+            - run: touch $CIRCLE_WORKING_DIRECTORY/lib/routes/secrets.js
             - run: echo $CONFIG | base64 --decode > $CIRCLE_WORKING_DIRECTORY/lib/routes/secrets.js
             - run: sudo npm install -g typescript
             - run: tsc
@@ -76,6 +77,7 @@ jobs:
             - run: sudo apt-get install python3-pip -y
             - run: sudo pip3 install awscli --upgrade
             # - run: aws configure set region us-east-1
+            - run: touch $CIRCLE_WORKING_DIRECTORY/lib/routes/secrets.js
             - run: echo $CONFIG | base64 --decode > $CIRCLE_WORKING_DIRECTORY/lib/routes/secrets.js
             - run: sudo npm install -g typescript
             - run: tsc
