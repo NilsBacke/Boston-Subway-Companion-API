@@ -5,7 +5,7 @@ import { Stop } from '../models'
 export async function stopsAtSameLocation(givenStop: Stop): Promise<string> {
 	const url = `${baseURL}/stops?api_key=${apiKey}&filter[latitude]=${givenStop.latitude}&filter[longitude]=${
 		givenStop.longitude
-	}&filter[radius]=0.001&filter[route_type]=0,1&sort=distance`
+	}&filter[radius]=0.01&filter[route_type]=0,1&sort=distance`
 
 	const stops = (await handleMultipleStops(url, false, 'GET')) as Stop[]
 
