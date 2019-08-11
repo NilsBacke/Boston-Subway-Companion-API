@@ -5,10 +5,7 @@ import { makeError } from '../models'
 
 export async function timeBetween(stop1Name: string, stop2Name: string): Promise<string> {
 	try {
-		const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&mode=transit&origins=${stop1Name.replace(
-			'\n',
-			' '
-		)} t stop&destinations=${stop2Name.replace('\n', ' ')} t stop&key=${distanceMatrixKey}`
+		const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&mode=transit&origins=${stop1Name} t stop&destinations=${stop2Name} t stop&key=${distanceMatrixKey}`
 
 		const result = await executeCall(url)
 
