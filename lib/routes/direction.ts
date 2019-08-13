@@ -13,11 +13,13 @@ export async function direction(stop1Name: string, stop2Name: string): Promise<s
 		const steps = result['routes'][0]['legs'][0]['steps']
 
 		for (const step of steps) {
-			const instructionsCase = step['html_instructions']
-			const instructions: string = instructionsCase.toLowerCase()
-			for (const endStop of endStops) {
-				if (instructions.includes(('towards ' + endStop).toLowerCase()) && !instructions.includes('walk')) {
-					return endStop
+			if (step['html_instructions']) {
+				const instructionsCase = step['html_instructions']
+				const instructions: string = instructionsCase.toLowerCase()
+				for (const endStop of endStops) {
+					if (instructions.includes(('towards ' + endStop).toLowerCase()) && !instructions.includes('walk')) {
+						return endStop
+					}
 				}
 			}
 		}
