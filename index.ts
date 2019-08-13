@@ -26,6 +26,11 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		}
 
 		const list = await nearest(event.queryStringParameters)
+
+		if (JSON.parse(list).error) {
+			return { statusCode: 500, body: list }
+		}
+
 		return { statusCode: 200, body: list }
 	}
 
@@ -36,6 +41,10 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		}
 
 		const list = await allNearby(event.queryStringParameters, Number(event.queryStringParameters!.range))
+
+		if (JSON.parse(list).error) {
+			return { statusCode: 500, body: list }
+		}
 
 		return { statusCode: 200, body: list }
 	}
@@ -50,6 +59,10 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 
 		const list = await stopsAtSameLocation(JSON.parse(event.body))
 
+		if (JSON.parse(list).error) {
+			return { statusCode: 500, body: list }
+		}
+
 		return { statusCode: 200, body: list }
 	}
 
@@ -63,6 +76,10 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 
 		const list = await alertsForStop(JSON.parse(event.queryStringParameters.stopId))
 
+		if (JSON.parse(list).error) {
+			return { statusCode: 500, body: list }
+		}
+
 		return { statusCode: 200, body: list }
 	}
 
@@ -75,6 +92,10 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		}
 
 		const stop = await neighborStop(JSON.parse(event.queryStringParameters.stopId))
+
+		if (JSON.parse(stop).error) {
+			return { statusCode: 500, body: stop }
+		}
 
 		return { statusCode: 200, body: stop }
 	}
