@@ -29,7 +29,9 @@ export const handleMultipleStops = async (
 
 		const result: Stop[] = []
 		for (let i = 0; i < data.length; i++) {
-			result.push(makeStop(data[i]))
+			if (!data[i].attributes.platform_name.includes('Drop-off Only')) {
+				result.push(makeStop(data[i]))
+			}
 		}
 
 		if (stringify) {
