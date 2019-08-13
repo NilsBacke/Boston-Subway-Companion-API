@@ -96,6 +96,10 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 			event.queryStringParameters.stop2Name
 		)
 
+		if (JSON.parse(endStopName).error) {
+			return { statusCode: 500, body: endStopName }
+		}
+
 		return { statusCode: 200, body: endStopName }
 	}
 
@@ -112,6 +116,10 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		}
 
 		const minutes = await timeBetween(event.queryStringParameters.stop1Name, event.queryStringParameters.stop2Name)
+
+		if (JSON.parse(minutes).error) {
+			return { statusCode: 500, body: minutes }
+		}
 
 		return { statusCode: 200, body: minutes }
 	}
