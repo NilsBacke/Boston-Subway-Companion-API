@@ -110,7 +110,7 @@ function convertDirectionToName(direction: string, name: string): string {
 		return 'East'
 	}
 
-	if (name === 'Alewife (from Braintree)' || name === 'Alewife (from Ashmont)') {
+	if (direction === 'Alewife (from Braintree)' || direction === 'Alewife (from Ashmont)') {
 		return 'North'
 	}
 
