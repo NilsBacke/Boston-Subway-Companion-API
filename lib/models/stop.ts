@@ -98,7 +98,17 @@ function convertDirectionToName(direction: string, name: string): string {
 		return 'South'
 	}
 
-	if 
+	if (name === 'Ashmont') {
+		return 'North'
+	}
+
+	if (name === 'Oak Grove') {
+		return 'West'
+	}
+
+	if (name === 'Forest Hills') {
+		return 'East'
+	}
 
 	if (
 		northList.includes(direction) ||
