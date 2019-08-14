@@ -12,7 +12,11 @@ export async function timeBetween(stop1Name: string, stop2Name: string): Promise
 		// TODO: error handling?
 		const seconds = result['rows'][0]['elements'][0]['duration']['value']
 
-		return (seconds / 60).toFixed(0).toString()
+		const minutes = (seconds / 60).toFixed(0)
+
+		return JSON.stringify({
+			minutes: minutes
+		})
 	} catch (e) {
 		return makeError(e.toString(), standardUserError) as string
 	}

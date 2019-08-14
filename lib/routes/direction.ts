@@ -18,7 +18,9 @@ export async function direction(stop1Name: string, stop2Name: string): Promise<s
 				const instructions: string = instructionsCase.toLowerCase()
 				for (const endStop of endStops) {
 					if (instructions.includes(('towards ' + endStop).toLowerCase()) && !instructions.includes('walk')) {
-						return endStop
+						return JSON.stringify({
+							direction: endStop
+						})
 					}
 				}
 			}
