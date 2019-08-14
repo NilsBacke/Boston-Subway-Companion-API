@@ -23,7 +23,7 @@ export function makeStop(data: any): Stop {
 	const desc = data['attributes']['description']
 	const lineName = getLineName(desc, data)
 	const directionDestination = data['attributes'].platform_name
-	const directionName = convertDirectionToName(data['attributes'].platform_name)
+	const directionName = convertDirectionToName(data['attributes'].platform_name, data['attributes'].name)
 	return {
 		id: data.id,
 		name: data['attributes'].name,
@@ -89,33 +89,51 @@ function getTextColor(lineName: string): string {
 	}
 }
 
-function convertDirectionToName(direction: string): string {
+function convertDirectionToName(direction: string, name: string): string {
 	if (direction == 'Park Street & North') {
 		return 'East'
 	}
 
+	if (name === 'Alewife') {
+		return 'South'
+	}
+
+	if 
+
 	if (
 		northList.includes(direction) ||
 		direction.toLowerCase().includes('north') ||
-		direction.toLowerCase().includes(northList.reduce((t1, t2) => t1.toString() + t2.toString()))
+		northList
+			.reduce((t1, t2) => t1.toString() + t2.toString())
+			.toLowerCase()
+			.includes(direction)
 	) {
 		return 'North'
 	} else if (
 		southList.includes(direction) ||
 		direction.toLowerCase().includes('south') ||
-		direction.toLowerCase().includes(southList.reduce((t1, t2) => t1.toString() + t2.toString()))
+		southList
+			.reduce((t1, t2) => t1.toString() + t2.toString())
+			.toLowerCase()
+			.includes(direction)
 	) {
 		return 'South'
 	} else if (
 		eastList.includes(direction) ||
 		direction.toLowerCase().includes('east') ||
-		direction.toLowerCase().includes(eastList.reduce((t1, t2) => t1.toString() + t2.toString()))
+		eastList
+			.reduce((t1, t2) => t1.toString() + t2.toString())
+			.toLowerCase()
+			.includes(direction)
 	) {
 		return 'East'
 	} else if (
 		westList.includes(direction) ||
 		direction.toLowerCase().includes('west') ||
-		direction.toLowerCase().includes(westList.reduce((t1, t2) => t1.toString() + t2.toString()))
+		westList
+			.reduce((t1, t2) => t1.toString() + t2.toString())
+			.toLowerCase()
+			.includes(direction)
 	) {
 		return 'West'
 	} else {

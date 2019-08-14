@@ -11,7 +11,10 @@ export async function stopsAtSameLocation(givenStop: Stop): Promise<string> {
 
 	// filter stops
 	for (let i = 0; i < stops.length; i++) {
-		if (stops[i].name !== givenStop.name || stops[i].directionDestination === 'Drop-off Only') {
+		if (
+			stops[i].name !== givenStop.name ||
+			['Drop-off Only', 'Exit Only'].includes(stops[i].directionDestination)
+		) {
 			stops.splice(i, i)
 			i--
 		}
