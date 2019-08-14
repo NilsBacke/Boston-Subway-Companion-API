@@ -110,6 +110,10 @@ function convertDirectionToName(direction: string, name: string): string {
 		return 'East'
 	}
 
+	if (name === 'Alewife (from Braintree)' || name === 'Alewife (from Ashmont)') {
+		return 'North'
+	}
+
 	if (
 		northList.includes(direction) ||
 		direction.toLowerCase().includes('north') ||
