@@ -6,7 +6,7 @@ import { Vehicle, makeVehicle } from '../models/vehicle'
 
 export async function vehicles(): Promise<string> {
 	try {
-		const url = `${baseURL}/vehicles?api_key=${apiKey}&filter[route_type]=1&include=route&sort=label`
+		const url = `${baseURL}/vehicles?api_key=${apiKey}&filter[route_type]=0,1&include=route&sort=label`
 
 		const result = await executeCall(url)
 
