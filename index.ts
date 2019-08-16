@@ -12,6 +12,7 @@ import {
 } from './lib/routes'
 import { makeError } from './lib/models'
 import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLocationParamsError } from './lib/constants'
+import { vehicles } from './lib/routes/vehicles'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
@@ -143,6 +144,16 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		}
 
 		return { statusCode: 200, body: minutes }
+	}
+
+	if (event.path.includes('/vehicles')) {
+		const list = await vehicles()
+
+		if (JSON.parse(list).error) {
+			return { statusCode: 500, body: list }
+		}
+
+		return { statusCode: 200, body: list }
 	}
 
 	return { statusCode: 404, body: makeError(noMatchingRouteError, standardUserError) as string }
