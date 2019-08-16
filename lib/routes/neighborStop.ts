@@ -8,7 +8,7 @@ export async function neighborStop(stopId: string): Promise<string> {
 	try {
 		const stopIdNum: number = Number(stopId)
 
-		const url = `${baseURL}/stops?api_key=${apiKey}&filter[route_type]=1&filter[id]=${stopIdNum},${stopIdNum -
+		const url = `${baseURL}/stops?api_key=${apiKey}&filter[route_type]=0,1&filter[id]=${stopIdNum},${stopIdNum -
 			1},${stopIdNum + 1}`
 		// stopID, stopID - 1, stopID + 1
 		const json = await executeCall(url)
