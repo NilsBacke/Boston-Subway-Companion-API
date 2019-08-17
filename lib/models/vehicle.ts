@@ -14,12 +14,19 @@ export function makeVehicle(jsonResponse: any, index: number): Vehicle {
 	const attributes = jsonResponse.data[index].attributes
 	const directionId = jsonResponse.data[index].attributes.direction_id
 	const routeId = jsonResponse.data[index].relationships.route.data.id
-	const stopId = jsonResponse.data[index].relationships.stop.data.id
+	let stopId = ''
+	const stopData = jsonResponse.data[index].relationships.stop.data
+	if (stopData) {
+		stopId = stopData.id
+	} else {
+		stopId = ''
+	}
 
 	const directionDestination = jsonResponse.included.find((val: any) => val.id === routeId)!.attributes
 		.direction_destinations[directionId]
 
-	const stopName = jsonResponse.included.find((val: any) => val.id === stopId)!.attributes.name
+	const stopName =
+		stopId.length > 0 ? jsonResponse.included.find((val: any) => val.id === stopId)!.attributes.name : ''
 
 	return {
 		id: jsonResponse.data[index].id,
