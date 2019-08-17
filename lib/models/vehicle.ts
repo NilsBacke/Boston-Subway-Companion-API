@@ -7,15 +7,19 @@ export interface Vehicle {
 	updatedAt: string
 	lineName: string
 	directionDestination: string
+	nextStop: string
 }
 
 export function makeVehicle(jsonResponse: any, index: number): Vehicle {
 	const attributes = jsonResponse.data[index].attributes
 	const directionId = jsonResponse.data[index].attributes.direction_id
 	const routeId = jsonResponse.data[index].relationships.route.data.id
+	const stopId = jsonResponse.data[index].relationships.stop.data.id
 
 	const directionDestination = jsonResponse.included.find((val: any) => val.id === routeId)!.attributes
 		.direction_destinations[directionId]
+
+	const stopName = jsonResponse.included.find((val: any) => val.id === stopId)!.attributes.name
 
 	return {
 		id: jsonResponse.data[index].id,
@@ -25,6 +29,7 @@ export function makeVehicle(jsonResponse: any, index: number): Vehicle {
 		speed: attributes.speed,
 		updatedAt: attributes.updatedAt,
 		lineName: routeId + ' line',
-		directionDestination: directionDestination
+		directionDestination: directionDestination,
+		nextStop: stopName
 	}
 }
