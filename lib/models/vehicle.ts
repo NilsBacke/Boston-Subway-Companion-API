@@ -34,7 +34,7 @@ export function makeVehicle(jsonResponse: any, index: number): Vehicle {
 		latitude: attributes.latitude,
 		longitude: attributes.longitude,
 		speed: attributes.speed,
-		updatedAt: attributes.updatedAt,
+		updatedAt: attributes.updated_at,
 		lineName: routeId + ' line',
 		directionDestination: directionDestination,
 		nextStop: stopName
