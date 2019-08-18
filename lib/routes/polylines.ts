@@ -18,7 +18,7 @@ export async function polylines(): Promise<string> {
 
 		for (const result of results) {
 			for (const data of result.data) {
-				const lineName = data.relationships.route.data.id.contains('Green')
+				const lineName = data.relationships.route.data.id.includes('Green')
 					? 'Green'
 					: data.relationships.route.data.id
 				polylines.push({
