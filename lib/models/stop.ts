@@ -87,7 +87,7 @@ export function getTextColor(lineName: string): string {
 		case 'Mattapan Trolley Line':
 			return '0xFFF44336'
 		default:
-			return ''
+			return '0xFFFF9800' // TODO: fix this case (polylines case)
 	}
 }
 
