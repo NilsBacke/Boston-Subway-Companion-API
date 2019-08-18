@@ -72,7 +72,7 @@ function getLineColor(lineName: string): string {
 	}
 }
 
-function getTextColor(lineName: string): string {
+export function getTextColor(lineName: string): string {
 	switch (lineName) {
 		case 'Orange Line':
 			return '0xFFFF9800'
@@ -83,6 +83,8 @@ function getTextColor(lineName: string): string {
 		case 'Red Line':
 		case 'Mattapan':
 		case 'Mattapan Trolley':
+		case 'Mattapan Line':
+		case 'Mattapan Trolley Line':
 			return '0xFFF44336'
 		default:
 			return ''

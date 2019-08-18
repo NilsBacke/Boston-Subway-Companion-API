@@ -1,7 +1,8 @@
 import { baseURL, apiKey } from '.'
 import { executeCall } from '../shared/executeCall'
 import { standardUserError, lines } from '../constants'
-import { makeError } from '../models'
+import { makeError, Polyline } from '../models'
+import { getTextColor } from '../models/stop'
 
 export async function polylines(): Promise<string> {
 	try {
@@ -9,7 +10,7 @@ export async function polylines(): Promise<string> {
 
 		const results = await Promise.all(promises)
 
-		const polylines = []
+		const polylines: Polyline[] = []
 
 		console.log(results)
 
@@ -17,11 +18,15 @@ export async function polylines(): Promise<string> {
 
 		for (const result of results) {
 			for (const data of result.data) {
-				polylines.push(data.attributes.polyline)
+				polylines.push({
+					lineTitle: data.relationships.route.data.id,
+					polyline: data.attributes.polyline,
+					color: getTextColor(data.relationships.route.data.id + ' Line')
+				})
 			}
 		}
 
-		return JSON.stringify({ polylines: polylines })
+		return JSON.stringify(polylines)
 	} catch (e) {
 		return makeError(e.toString(), standardUserError) as string
 	}
