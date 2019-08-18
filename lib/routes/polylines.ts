@@ -5,7 +5,7 @@ import { makeError } from '../models'
 
 export async function polylines(): Promise<string> {
 	try {
-		const promises = lines.map(line => executeCall(`${baseURL}/shapes?api_key=${apiKey}&filter[route]=$line`))
+		const promises = lines.map(line => executeCall(`${baseURL}/shapes?api_key=${apiKey}&filter[route]=${line}`))
 
 		const results = await Promise.all(promises)
 
