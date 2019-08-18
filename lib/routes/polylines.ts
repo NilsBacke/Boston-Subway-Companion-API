@@ -11,6 +11,10 @@ export async function polylines(): Promise<string> {
 
 		const polylines = []
 
+		console.log(results)
+
+		console.log(results[0].data)
+
 		for (const result of results) {
 			for (const data of result.data) {
 				polylines.push(data.attributes.polyline)
