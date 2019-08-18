@@ -13,6 +13,7 @@ import {
 import { makeError } from './lib/models'
 import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLocationParamsError } from './lib/constants'
 import { vehicles } from './lib/routes/vehicles'
+import { polylines } from './lib/routes/polylines'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
