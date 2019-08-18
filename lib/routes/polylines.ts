@@ -18,14 +18,16 @@ export async function polylines(): Promise<string> {
 
 		for (const result of results) {
 			for (const data of result.data) {
-				const lineName = data.relationships.route.data.id.includes('Green')
-					? 'Green'
-					: data.relationships.route.data.id
-				polylines.push({
-					lineTitle: lineName,
-					polyline: data.attributes.polyline,
-					color: getTextColor(lineName + ' Line')
-				})
+				if (lines.includes(data.relationships.route.data.id)) {
+					const lineName = data.relationships.route.data.id.includes('Green')
+						? 'Green'
+						: data.relationships.route.data.id
+					polylines.push({
+						lineTitle: lineName,
+						polyline: data.attributes.polyline,
+						color: getTextColor(lineName + ' Line')
+					})
+				}
 			}
 		}
 
