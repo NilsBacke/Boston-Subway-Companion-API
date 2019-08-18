@@ -156,6 +156,16 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		return { statusCode: 200, body: list }
 	}
 
+	if (event.path.includes('/polylines')) {
+		const list = await polylines()
+
+		if (JSON.parse(list).error) {
+			return { statusCode: 500, body: list }
+		}
+
+		return { statusCode: 200, body: list }
+	}
+
 	return { statusCode: 404, body: makeError(noMatchingRouteError, standardUserError) as string }
 }
 

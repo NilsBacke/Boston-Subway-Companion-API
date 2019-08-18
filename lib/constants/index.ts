@@ -29,6 +29,8 @@ export const endStops: string[] = [
 	'Heath Street'
 ]
 
+export const lines: string[] = ['Red', 'Orange', 'Blue', 'Green-B', 'Green-C', 'Green-D', 'Green-E']
+
 export const standardUserError = 'Unable to load data at this time. Please try again.'
 export const stopUserError = 'Unable to load stop. Please try again.'
 export const missingLocationParamsError =
