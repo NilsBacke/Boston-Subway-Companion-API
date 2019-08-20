@@ -109,11 +109,11 @@ function convertDirectionToName(direction: string, name: string): string {
 	}
 
 	if (name === 'Oak Grove') {
-		return 'West'
+		return 'South'
 	}
 
 	if (name === 'Forest Hills') {
-		return 'East'
+		return 'North'
 	}
 
 	if (direction === 'Alewife (from Braintree)' || direction === 'Alewife (from Ashmont)') {
