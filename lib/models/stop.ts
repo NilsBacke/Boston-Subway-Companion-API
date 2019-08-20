@@ -104,6 +104,10 @@ function convertDirectionToName(direction: string, name: string): string {
 		return 'North'
 	}
 
+	if (name === 'Braintree') {
+		return 'North'
+	}
+
 	if (name === 'Oak Grove') {
 		return 'West'
 	}
