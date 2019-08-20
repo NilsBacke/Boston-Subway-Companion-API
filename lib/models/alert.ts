@@ -19,7 +19,7 @@ export function makeAlert(json: any, stopId: string): Alert {
 		endDate: attributes.active_period[0].end,
 		timeframe: attributes.timeframe,
 		title: attributes.service_effect,
-		subtitle: attributes.short_header,
+		subtitle: attributes.header,
 		description: attributes.description,
 		updatedAt: attributes.updated_at
 	}

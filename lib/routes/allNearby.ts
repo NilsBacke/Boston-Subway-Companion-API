@@ -10,5 +10,5 @@ export async function allNearby(locationData: any, range?: number): Promise<stri
 		locationData!.longitude
 	}&filter[radius]=${radius}&filter[route_type]=0,1&sort=distance`
 
-	return JSON.stringify(await handleMultipleStops(url))
+	return (await handleMultipleStops(url, true)) as string
 }
