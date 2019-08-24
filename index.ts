@@ -11,7 +11,13 @@ import {
 	timeBetweenStops
 } from './lib/routes'
 import { makeError } from './lib/models'
-import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLocationParamsError } from './lib/constants'
+import {
+	stopIdParamsError,
+	standardUserError,
+	noMatchingRouteError,
+	missingLocationParamsError,
+	stopNameParamsError
+} from './lib/constants'
 import { vehicles } from './lib/routes/vehicles'
 import { polylines } from './lib/routes/polylines'
 import { timeBetweenWalk } from './lib/routes/timeBetweenWalk'
@@ -127,7 +133,7 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		return { statusCode: 200, body: endStopName }
 	}
 
-	if (event.path.includes('/stops/timebetween')) {
+	if (event.path.includes('/stops/timebetween') && !event.path.includes('/stops/timebetweenwalk')) {
 		if (
 			!event.queryStringParameters ||
 			!event.queryStringParameters.stop1Name ||
@@ -156,7 +162,7 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		if (error || !event.queryStringParameters || !event.queryStringParameters.stopName) {
 			return {
 				statusCode: 400,
-				body: makeError(stopIdParamsError, standardUserError) as string
+				body: makeError(stopNameParamsError, standardUserError) as string
 			}
 		}
 
