@@ -3,9 +3,9 @@ import { executeCall } from '../shared/executeCall'
 import { standardUserError } from '../constants'
 import { makeError } from '../models'
 
-export async function timeBetweenStops(stop1Name: string, stop2Name: string): Promise<string> {
+export async function timeBetweenWalk(stopName: string, latitude: number, longitude: number): Promise<string> {
 	try {
-		const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&mode=transit&origins=${stop1Name} t stop&destinations=${stop2Name} t stop&key=${distanceMatrixKey}`
+		const url = `https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&mode=transit&origins=${latitude},${longitude}&destinations=${stopName} t stop&key=${distanceMatrixKey}`
 
 		const result = await executeCall(url)
 

@@ -14,6 +14,7 @@ import { makeError } from './lib/models'
 import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLocationParamsError } from './lib/constants'
 import { vehicles } from './lib/routes/vehicles'
 import { polylines } from './lib/routes/polylines'
+import { timeBetweenStops } from './lib/routes/timeBetween'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
@@ -138,7 +139,36 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 			}
 		}
 
-		const minutes = await timeBetween(event.queryStringParameters.stop1Name, event.queryStringParameters.stop2Name)
+		const minutes = await timeBetweenStops(
+			event.queryStringParameters.stop1Name,
+			event.queryStringParameters.stop2Name
+		)
+
+		if (JSON.parse(minutes).error) {
+			return { statusCode: 500, body: minutes }
+		}
+
+		return { statusCode: 200, body: minutes }
+	}
+
+	if (event.path.includes('/stops/timebetweenwalk')) {
+		if (
+			!event.queryStringParameters ||
+			!event.queryStringParameters.stopName ||
+			!event.queryStringParameters.latitude ||
+			!event.queryStringParameters.longitude
+		) {
+			return {
+				statusCode: 400,
+				body: makeError(stopIdParamsError, standardUserError) as string
+			}
+		}
+
+		const minutes = await timeBetweenWalk(
+			event.queryStringParameters.stopName,
+			event.queryStringParameters.latitude,
+			event.queryStringParameters.longitude
+		)
 
 		if (JSON.parse(minutes).error) {
 			return { statusCode: 500, body: minutes }
