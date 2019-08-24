@@ -8,13 +8,12 @@ import {
 	alertsForStop,
 	neighborStop,
 	direction,
-	timeBetween
+	timeBetweenStops
 } from './lib/routes'
 import { makeError } from './lib/models'
 import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLocationParamsError } from './lib/constants'
 import { vehicles } from './lib/routes/vehicles'
 import { polylines } from './lib/routes/polylines'
-import { timeBetweenStops } from './lib/routes/timeBetween'
 import { timeBetweenWalk } from './lib/routes/timeBetweenWalk'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
