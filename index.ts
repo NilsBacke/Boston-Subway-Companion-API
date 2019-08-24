@@ -152,12 +152,8 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 	}
 
 	if (event.path.includes('/stops/timebetweenwalk')) {
-		if (
-			!event.queryStringParameters ||
-			!event.queryStringParameters.stopName ||
-			!event.queryStringParameters.latitude ||
-			!event.queryStringParameters.longitude
-		) {
+		const error = handleLocationParams(event)
+		if (error || !event.queryStringParameters || !event.queryStringParameters.stopName) {
 			return {
 				statusCode: 400,
 				body: makeError(stopIdParamsError, standardUserError) as string
