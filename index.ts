@@ -15,6 +15,7 @@ import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLoca
 import { vehicles } from './lib/routes/vehicles'
 import { polylines } from './lib/routes/polylines'
 import { timeBetweenStops } from './lib/routes/timeBetween'
+import { timeBetweenWalk } from './lib/routes/timeBetweenWalk'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
