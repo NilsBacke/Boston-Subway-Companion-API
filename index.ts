@@ -8,12 +8,19 @@ import {
 	alertsForStop,
 	neighborStop,
 	direction,
-	timeBetween
+	timeBetweenStops
 } from './lib/routes'
 import { makeError } from './lib/models'
-import { stopIdParamsError, standardUserError, noMatchingRouteError, missingLocationParamsError } from './lib/constants'
+import {
+	stopIdParamsError,
+	standardUserError,
+	noMatchingRouteError,
+	missingLocationParamsError,
+	stopNameParamsError
+} from './lib/constants'
 import { vehicles } from './lib/routes/vehicles'
 import { polylines } from './lib/routes/polylines'
+import { timeBetweenWalk } from './lib/routes/timeBetweenWalk'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
@@ -126,7 +133,7 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 		return { statusCode: 200, body: endStopName }
 	}
 
-	if (event.path.includes('/stops/timebetween')) {
+	if (event.path.includes('/stops/timebetween') && !event.path.includes('/stops/timebetweenwalk')) {
 		if (
 			!event.queryStringParameters ||
 			!event.queryStringParameters.stop1Name ||
@@ -138,7 +145,32 @@ exports.handler = async function(event: APIGatewayEvent, context: Context): Prom
 			}
 		}
 
-		const minutes = await timeBetween(event.queryStringParameters.stop1Name, event.queryStringParameters.stop2Name)
+		const minutes = await timeBetweenStops(
+			event.queryStringParameters.stop1Name,
+			event.queryStringParameters.stop2Name
+		)
+
+		if (JSON.parse(minutes).error) {
+			return { statusCode: 500, body: minutes }
+		}
+
+		return { statusCode: 200, body: minutes }
+	}
+
+	if (event.path.includes('/stops/timebetweenwalk')) {
+		const error = handleLocationParams(event)
+		if (error || !event.queryStringParameters || !event.queryStringParameters.stopName) {
+			return {
+				statusCode: 400,
+				body: makeError(stopNameParamsError, standardUserError) as string
+			}
+		}
+
+		const minutes = await timeBetweenWalk(
+			event.queryStringParameters.stopName,
+			event.queryStringParameters.latitude,
+			event.queryStringParameters.longitude
+		)
 
 		if (JSON.parse(minutes).error) {
 			return { statusCode: 500, body: minutes }

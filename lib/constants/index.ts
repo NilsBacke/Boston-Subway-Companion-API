@@ -36,4 +36,5 @@ export const stopUserError = 'Unable to load stop. Please try again.'
 export const missingLocationParamsError =
 	'No query string parameters provided. Require query parameters: latitude, longitude'
 export const stopIdParamsError = 'stopId parameter not provided'
+export const stopNameParamsError = 'stopName parameter not provided'
 export const noMatchingRouteError = 'No matching endpoint'
