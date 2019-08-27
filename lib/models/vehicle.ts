@@ -33,7 +33,7 @@ export function makeVehicle(jsonResponse: any, index: number): Vehicle {
 		bearing: attributes.bearing,
 		latitude: attributes.latitude,
 		longitude: attributes.longitude,
-		speed: attributes.speed == null ? null : parseFloat(attributes.speed.toFixed(1)),
+		speed: attributes.speed == null ? null : parseFloat(attributes.speed.toString() + '.0'),
 		updatedAt: attributes.updated_at,
 		lineName: routeId + ' Line',
 		directionDestination: directionDestination,
