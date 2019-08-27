@@ -33,7 +33,7 @@ export function makeVehicle(jsonResponse: any, index: number): Vehicle {
 		bearing: attributes.bearing,
 		latitude: attributes.latitude,
 		longitude: attributes.longitude,
-		speed: attributes.speed,
+		speed: parseFloat((attributes.speed as number).toFixed(1)),
 		updatedAt: attributes.updated_at,
 		lineName: routeId + ' Line',
 		directionDestination: directionDestination,
