@@ -17,8 +17,9 @@
 		"typescript": "^3.5.3"
 	},
 	"scripts": {
-		"zipuploaddevelop": "tsc && zip -r ./boston-subway-companion-api.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI --zip-file fileb://boston-subway-companion-api.zip",
-		"zipuploadprod": "tsc && zip -r ./boston-subway-companion-api-prod.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI-prod --zip-file fileb://boston-subway-companion-api-prod.zip",
+		"zipuploaddevelop": "tsc && zip -r ./boston-subway-companion-api-develop.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI --zip-file fileb://boston-subway-companion-api-develop.zip",
+		"zipuploadprod-v1": "tsc && zip -r ./boston-subway-companion-api-prod-v1.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI-prod --zip-file fileb://boston-subway-companion-api-prod-v1.zip",
+		"zipuploadprod-v2": "tsc && zip -r ./boston-subway-companion-api-prod-v2.zip * && find . -name \"*.js\" -type f -delete && aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI-v2 --zip-file fileb://boston-subway-companion-api-prod-v2.zip",
 		"zip": "tsc && zip -r ./boston-subway-companion-api.zip * && find . -name \"*.js\" -type f -delete",
 		"type-check": "tsc --noEmit"
 	}

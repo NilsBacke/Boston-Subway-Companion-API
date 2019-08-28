@@ -1,5 +1,4 @@
 import { APIGatewayEvent, Context, APIGatewayProxyResult } from 'aws-lambda'
-
 var packagejson = require('./package.json')
 import {
 	nearest,
@@ -22,6 +21,9 @@ import { vehicles } from './lib/routes/vehicles'
 import { polylines } from './lib/routes/polylines'
 import { timeBetweenWalk } from './lib/routes/timeBetweenWalk'
 console.log('loaded ' + packagejson.name + ', version ' + packagejson.version)
+
+const test = async () => console.log(await nearest({ latitude: 42.7654, longitude: -71.4676 }))
+test()
 
 exports.handler = async function(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
 	if (!event.path) {
