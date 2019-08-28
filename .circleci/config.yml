@@ -19,6 +19,7 @@ jobs:
         steps:
             - checkout
 
+            - run: rm -rf node_modules
             - run: npm install
 
             # run type check!
@@ -35,6 +36,7 @@ jobs:
         steps:
             - checkout
 
+            - run: rm -rf node_modules
             - run: npm install
             - run: sudo apt-get update
             - run: sudo apt-get install zip -y
@@ -61,6 +63,7 @@ jobs:
         steps:
             - checkout
 
+            - run: rm -rf node_modules
             - run: npm install
             - run: sudo apt-get update
             - run: sudo apt-get install zip -y
@@ -70,12 +73,14 @@ jobs:
             # - run: aws configure set region us-east-1
             - run: touch ./lib/routes/secrets.js
             - run: echo $CIRCLE_WORKING_DIRECTORY
-            - run: echo $CONFIG | base64 --decode > ./lib/routes/secrets.js
+            - run: |
+                  echo $CONFIG > ./placeholder.txt
+                  base64 --decode -i ./placeholder.txt > ./lib/routes/secrets.ts
             - run: sudo npm install -g typescript
             - run: tsc
-            - run: zip -r ./boston-subway-companion-api-prod.zip *
+            - run: zip -r ./boston-subway-companion-api-v2.zip *
             - run: find . -name \"*.js\" -type f -delete
-            - run: aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI-prod --zip-file fileb://boston-subway-companion-api-prod.zip
+            - run: aws lambda update-function-code --function-name arn:aws:lambda:us-east-1:455170633390:function:bostonSubwayCompanionAPI-v2 --zip-file fileb://boston-subway-companion-api-v2.zip
 
 workflows:
     version: 2
