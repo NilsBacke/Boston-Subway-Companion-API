@@ -1,3 +1,5 @@
+export { stopToRouteMap } from './mapStopsToRoutes'
+
 export const northList: string[] = ['Alewife', 'Oak Grove']
 export const southList: string[] = ['Ashmont/Braintree', 'Ashmont', 'Braintree', 'Forest Hills', 'Mattapan']
 export const westList: string[] = [

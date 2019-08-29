@@ -1,4 +1,6 @@
-import { northList, eastList, southList, westList } from '../constants'
+import { northList, eastList, southList, westList, stopToRouteMap } from '../constants'
+
+type RouteType = 0 | 1 | 2 | 3
 
 const MBTAred = '0xFFDA291C'
 const MBTAorange = '0xFFED8B00'
@@ -17,9 +19,19 @@ export interface Stop {
 	lineColorHex: string
 	lineInitials: string
 	directionDescription: string
+	routeType: RouteType
 }
 
 export function makeStop(data: any): Stop {
+	const stopType = !!data['attributes'].vehicle_type ? data['attributes'].vehicle_type : 3
+	if (stopType === 0 || stopType === 1) {
+		return makeSubwayStop(data)
+	}
+
+	return makeBusStop(data) as any // TODO: remove type cast
+}
+
+function makeSubwayStop(data: any): Stop {
 	const desc = data['attributes']['description']
 	const lineName = getLineName(desc, data)
 	const directionDestination = data['attributes'].platform_name
@@ -29,13 +41,26 @@ export function makeStop(data: any): Stop {
 		name: data['attributes'].name,
 		latitude: data['attributes'].latitude,
 		longitude: data['attributes'].longitude,
-		directionDestination: directionDestination,
+		directionDestination: directionDestination, // Oak Grove, Forest Hills
 		directionName: directionName,
 		lineName: lineName,
 		textColorHex: getTextColor(lineName),
 		lineColorHex: getLineColor(lineName),
 		lineInitials: getLineInitials(lineName),
-		directionDescription: getDirectionDescription(directionDestination, directionName)
+		directionDescription: getDirectionDescription(directionDestination, directionName),
+		routeType: !!data['attributes'].vehicle_type ? data['attributes'].vehicle_type : 1
+	}
+}
+
+function makeBusStop(data: any) {
+	return {
+		id: data.id,
+		name: data['attributes'].name,
+		latitude: data['attributes'].latitude,
+		longitude: data['attributes'].longitude,
+		directionDestination: '',
+		directionName: ''
+		// lineName: stopToRouteMap[data.id]
 	}
 }
 
