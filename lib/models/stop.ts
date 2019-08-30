@@ -28,18 +28,15 @@ export interface Stop {
     routeType: RouteType
 }
 
-export function makeStop(data: any): Stop | null {
+export function makeStop(data: any): Stop {
     const vehicleType = !!data['attributes'].vehicle_type
         ? data['attributes'].vehicle_type
-        : null
+        : 1
     if (vehicleType === 0 || vehicleType === 1) {
         return makeSubwayStop(data)
     }
 
-    if (vehicleType === 3) {
-        return makeBusStop(data)
-    }
-    return null
+    return makeBusStop(data)
 }
 
 function makeSubwayStop(data: any): Stop {
@@ -75,18 +72,19 @@ function makeBusStop(data: any): Stop {
     const lineName = !!stopToRouteMap[data.id]
         ? stopToRouteMap[data.id].name
         : ''
+    const platformName = data['attributes'].platform_name || ''
     return {
         id: data.id,
         name: data['attributes'].name,
         latitude: data['attributes'].latitude,
         longitude: data['attributes'].longitude,
-        directionDestination: data['attributes'].platform_name,
+        directionDestination: platformName,
         directionName: '',
         lineName: lineName,
         textColorHex: getTextColor(lineName),
         lineColorHex: getLineColor(lineName),
         lineInitials: lineName,
-        directionDescription: 'Towards ' + data['attributes'].platform_name,
+        directionDescription: !!platformName ? 'Towards ' + platformName : '',
         routeType: !!data['attributes'].vehicle_type
             ? data['attributes'].vehicle_type
             : 3
@@ -119,7 +117,7 @@ function getLineColor(lineName: string): string {
     if (lineName.includes('CT')) {
         return '0xFF#FFCA39'
     }
-    if (isNaN(+lineName)) {
+    if (!isNaN(+lineName)) {
         return '0xFFA9A9A9'
     }
 
