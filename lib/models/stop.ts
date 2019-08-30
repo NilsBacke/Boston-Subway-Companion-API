@@ -36,7 +36,7 @@ export function makeStop(data: any): Stop {
         return makeSubwayStop(data)
     }
 
-    return makeBusStop(data) as any // TODO: remove type cast
+    return makeBusStop(data)
 }
 
 function makeSubwayStop(data: any): Stop {
@@ -68,7 +68,7 @@ function makeSubwayStop(data: any): Stop {
     }
 }
 
-function makeBusStop(data: any) {
+function makeBusStop(data: any): Stop {
     const lineName = stopToRouteMap[data.id].name
     return {
         id: data.id,
@@ -80,6 +80,7 @@ function makeBusStop(data: any) {
         lineName: lineName,
         textColorHex: getTextColor(lineName),
         lineColorHex: getLineColor(lineName),
+        lineInitials: lineName,
         directionDescription: 'Towards ' + data['attributes'].platform_name,
         routeType: !!data['attributes'].vehicle_type
             ? data['attributes'].vehicle_type
