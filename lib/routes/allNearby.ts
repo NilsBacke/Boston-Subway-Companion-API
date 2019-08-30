@@ -1,7 +1,6 @@
 import { handleMultipleStops } from '../shared/handleMultipleStops'
 import { baseURL, apiKey } from '.'
 import { fullStopList } from '../models/fullStopList'
-import { fullStopList } from '../models/fullStopList'
 
 const rangeInMiles = 1000
 
