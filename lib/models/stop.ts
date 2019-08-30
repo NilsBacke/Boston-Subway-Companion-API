@@ -28,7 +28,7 @@ export interface Stop {
     routeType: RouteType
 }
 
-export function makeStop(data: any): Stop {
+export function makeStop(data: any): Stop[] {
     const vehicleType = !!data['attributes'].vehicle_type
         ? data['attributes'].vehicle_type
         : 1
@@ -39,7 +39,7 @@ export function makeStop(data: any): Stop {
     return makeBusStop(data)
 }
 
-function makeSubwayStop(data: any): Stop {
+function makeSubwayStop(data: any): Stop[] {
     const desc = data['attributes']['description']
     const lineName = getLineName(desc, data)
     const directionDestination = data['attributes'].platform_name
@@ -47,48 +47,58 @@ function makeSubwayStop(data: any): Stop {
         data['attributes'].platform_name,
         data['attributes'].name
     )
-    return {
-        id: data.id,
-        name: data['attributes'].name,
-        latitude: data['attributes'].latitude,
-        longitude: data['attributes'].longitude,
-        directionDestination: directionDestination, // Oak Grove, Forest Hills
-        directionName: directionName,
-        lineName: lineName,
-        textColorHex: getTextColor(lineName),
-        lineColorHex: getLineColor(lineName),
-        lineInitials: getLineInitials(lineName),
-        directionDescription: getDirectionDescription(
-            directionDestination,
-            directionName
-        ),
-        routeType: !!data['attributes'].vehicle_type
-            ? data['attributes'].vehicle_type
-            : 1
-    }
+    return [
+        {
+            id: data.id,
+            name: data['attributes'].name,
+            latitude: data['attributes'].latitude,
+            longitude: data['attributes'].longitude,
+            directionDestination: directionDestination, // Oak Grove, Forest Hills
+            directionName: directionName,
+            lineName: lineName,
+            textColorHex: getTextColor(lineName),
+            lineColorHex: getLineColor(lineName),
+            lineInitials: getLineInitials(lineName),
+            directionDescription: getDirectionDescription(
+                directionDestination,
+                directionName
+            ),
+            routeType: !!data['attributes'].vehicle_type
+                ? data['attributes'].vehicle_type
+                : 1
+        }
+    ]
 }
 
-function makeBusStop(data: any): Stop {
-    const lineName = !!stopToRouteMap[data.id]
-        ? stopToRouteMap[data.id].name
-        : ''
+function makeBusStop(data: any): Stop[] {
+    const routes = !!stopToRouteMap[data.id] ? stopToRouteMap[data.id] : []
     const platformName = data['attributes'].platform_name || ''
-    return {
-        id: data.id,
-        name: data['attributes'].name,
-        latitude: data['attributes'].latitude,
-        longitude: data['attributes'].longitude,
-        directionDestination: platformName,
-        directionName: '',
-        lineName: lineName,
-        textColorHex: getTextColor(lineName),
-        lineColorHex: getLineColor(lineName),
-        lineInitials: lineName,
-        directionDescription: !!platformName ? 'Towards ' + platformName : '',
-        routeType: !!data['attributes'].vehicle_type
-            ? data['attributes'].vehicle_type
-            : 3
+    const stops: Stop[] = []
+
+    for (const route of routes) {
+        const lineName = route.name
+        // const routeId = route.id
+        stops.push({
+            id: data.id,
+            name: data['attributes'].name,
+            latitude: data['attributes'].latitude,
+            longitude: data['attributes'].longitude,
+            directionDestination: platformName,
+            directionName: '',
+            lineName: lineName,
+            textColorHex: getTextColor(lineName),
+            lineColorHex: getLineColor(lineName),
+            lineInitials: lineName,
+            directionDescription: !!platformName
+                ? 'Towards ' + platformName
+                : '',
+            routeType: !!data['attributes'].vehicle_type
+                ? data['attributes'].vehicle_type
+                : 3
+        })
     }
+
+    return stops
 }
 
 function getLineName(desc: string, data: any): string {
