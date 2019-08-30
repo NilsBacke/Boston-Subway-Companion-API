@@ -142,6 +142,10 @@ function getLineColor(lineName: string): string {
 }
 
 export function getTextColor(lineName: string): string {
+    if (!lineName) {
+        return '0xFFA9A9A9'
+    }
+
     if (lineName.includes('SL')) {
         return '0xFFC0C0C0'
     }
