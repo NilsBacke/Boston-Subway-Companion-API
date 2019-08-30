@@ -77,7 +77,6 @@ function makeBusStop(data: any): Stop[] {
 
     for (const route of routes) {
         const lineName = route.name
-        console.log(lineName)
         // const routeId = route.id
         stops.push({
             id: data.id,
