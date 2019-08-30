@@ -20,26 +20,33 @@ export async function allNearby(
 
     const stops = fullStopList
 
-    stops.sort(
-        (stop1, stop2) =>
-            distance(
-                locationData.latitude,
-                locationData.longitude,
-                stop1.latitude,
-                stop1.longitude
-            ) <
-            distance(
-                locationData.latitude,
-                locationData.longitude,
-                stop2.latitude,
-                stop2.longitude
-            )
+    stops.sort((stop1, stop2) =>
+        distance(
+            locationData.latitude,
+            locationData.longitude,
+            stop1.latitude,
+            stop1.longitude
+        ) <
+        distance(
+            locationData.latitude,
+            locationData.longitude,
+            stop2.latitude,
+            stop2.longitude
+        )
+            ? 1
+            : 0
     )
 
     return JSON.stringify(fullStopList)
 }
 
-function distance(lat1, lon1, lat2, lon2, unit) {
+function distance(
+    lat1: number,
+    lon1: number,
+    lat2: number,
+    lon2: number,
+    unit?: string
+): number {
     if (lat1 == lat2 && lon1 == lon2) {
         return 0
     } else {
