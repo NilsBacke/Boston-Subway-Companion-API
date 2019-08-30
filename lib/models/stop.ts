@@ -28,15 +28,18 @@ export interface Stop {
     routeType: RouteType
 }
 
-export function makeStop(data: any): Stop {
-    const stopType = !!data['attributes'].vehicle_type
+export function makeStop(data: any): Stop | null {
+    const vehicleType = !!data['attributes'].vehicle_type
         ? data['attributes'].vehicle_type
-        : 3
-    if (stopType === 0 || stopType === 1) {
+        : null
+    if (vehicleType === 0 || vehicleType === 1) {
         return makeSubwayStop(data)
     }
 
-    return makeBusStop(data)
+    if (vehicleType === 3) {
+        return makeBusStop(data)
+    }
+    return null
 }
 
 function makeSubwayStop(data: any): Stop {
