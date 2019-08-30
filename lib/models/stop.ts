@@ -69,7 +69,9 @@ function makeSubwayStop(data: any): Stop {
 }
 
 function makeBusStop(data: any): Stop {
-    const lineName = stopToRouteMap[data.id].name
+    const lineName = !!stopToRouteMap[data.id]
+        ? stopToRouteMap[data.id].name
+        : ''
     return {
         id: data.id,
         name: data['attributes'].name,
