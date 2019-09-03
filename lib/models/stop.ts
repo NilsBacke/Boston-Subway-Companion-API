@@ -112,7 +112,7 @@ function getLineColor(lineName: string, routeType: RouteType): string {
 			return '0xFF#FFCA39'
 		}
 		if (!isNaN(+lineName)) {
-			return '0xFFA9A9A9'
+			return '0xFFFFC72D'
 		}
 	}
 
